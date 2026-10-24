@@ -1,0 +1,13 @@
+[Unit]
+Description=ProjectOS — service des projets (projetd)
+Documentation=file:///usr/share/projectos/README.md
+
+[Service]
+Type=simple
+Environment=PYTHONPATH=/usr/libexec/projectos
+ExecStartPre=/usr/bin/mkdir -p %h/.projectos
+ExecStart=/usr/bin/python3 -m projectos.serve %h/.projectos/index.db %t/projectos.sock
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

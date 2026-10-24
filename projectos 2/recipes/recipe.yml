@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
+# ProjectOS — recette de l'image.
+# Base : Fedora Atomic (Silverblue) préparée par Universal Blue.
+name: projectos
+description: ProjectOS — le système qui s'organise autour de vos projets.
+base-image: ghcr.io/ublue-os/silverblue-main
+image-version: latest
+
+modules:
+  # 1. Les fichiers ProjectOS : le cœur (projetd), la commande « projet »,
+  #    le service utilisateur, le logo et le fond d'écran.
+  - type: files
+    files:
+      - source: system
+        destination: /
+
+  # 2. Les briques du courrier prévues en phase 0 (synchronisation, index).
+  - type: dnf
+    install:
+      packages:
+        - isync
+        - notmuch
+        - python3
+
+  # 3. Les applications coopérantes : elles restent les outils natifs.
+  - type: default-flatpaks
+    notify: true
+    system:
+      install:
+        - org.mozilla.firefox
+        - org.mozilla.Thunderbird
+        - org.libreoffice.LibreOffice
+
+  # 4. La typographie de la charte.
+  - type: fonts
+    fonts:
+      google-fonts:
+        - Spectral
+        - Inter
+
+  # 5. Les réglages visuels : bleu de Sèvres, fond porcelaine, polices.
+  - type: gschema-overrides
+    include:
+      - zz1-projectos.gschema.override
+
+  # 6. Le service des projets, lancé à chaque ouverture de session.
+  - type: systemd
+    user:
+      enabled:
+        - projetd.service

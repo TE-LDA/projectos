@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+# « projet » — la ligne de commande de ProjectOS.
+export PYTHONPATH=/usr/libexec/projectos${PYTHONPATH:+:$PYTHONPATH}
+exec /usr/bin/python3 -m projectos.cli --db "$HOME/.projectos/index.db" "$@"

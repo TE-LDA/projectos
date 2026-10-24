@@ -1,0 +1,16 @@
+# ProjectOS — réglages par défaut du bureau (étape 1, avant le bureau ProjectOS).
+
+[org.gnome.desktop.interface]
+accent-color='blue'
+font-name='Inter 11'
+document-font-name='Spectral 12'
+color-scheme='default'
+
+[org.gnome.desktop.background]
+picture-uri='file:///usr/share/projectos/fond-porcelaine.svg'
+picture-uri-dark='file:///usr/share/projectos/fond-nuit.svg'
+picture-options='zoom'
+primary-color='#FAF9F6'
+
+[org.gnome.desktop.screensaver]
+picture-uri='file:///usr/share/projectos/fond-porcelaine.svg'
